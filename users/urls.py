@@ -1,12 +1,11 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-
+from rest_framework import routers
+from users.views import UserViewSet
 from users.apps import UsersConfig
 
 app_name = UsersConfig.name
 
-urlpatterns = [
+router_user = routers.DefaultRouter()
+router_user.register("", UserViewSet, basename='user')
 
-]
+urlpatterns = []
+urlpatterns += router_user.urls
