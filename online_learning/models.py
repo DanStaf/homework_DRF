@@ -20,6 +20,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=150, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     picture = models.ImageField(null=True, blank=True, verbose_name='Превью (картинка)')
+    url = models.CharField(max_length=150, null=True, blank=True, verbose_name='Ссылка на видео')
     course = models.ForeignKey(Course, null=True, blank=True, verbose_name='Курс', on_delete=models.SET_NULL)
     owner = models.ForeignKey(User, null=True, blank=True, verbose_name='Владелец', on_delete=models.SET_NULL)
 

@@ -15,3 +15,5 @@
 ### Views:
 - for Course and User used ViewSets
 - for Lesson used Generics
+
+## 24.2
