@@ -9,7 +9,7 @@
 - Postgres
 
 ### Models
-- app users, model User
+- app users, models User, Payment
 - app online_learning, models Course, Lesson
 
 ### Views:

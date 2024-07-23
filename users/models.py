@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+# from online_learning.models import Course, Lesson
+
 
 class User(AbstractUser):
     username = None
@@ -18,10 +20,6 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-        permissions = [
-            ('deactivate_user', 'Can deactivate user'),
-            ('view_all_users', 'Can view all users'),
-        ]
 
     def __str__(self):
 
@@ -29,3 +27,28 @@ class User(AbstractUser):
             return f'USER: {self.first_name} {self.last_name}'
         else:
             return f'USER: {self.email}'
+
+
+class Payment(models.Model):
+
+    CASH = "наличные"
+    CARD = "перевод на счет"
+
+    PAYMENT_CHOICES = [
+        (CASH, "наличные"),
+        (CARD, "перевод на счет")
+    ]
+
+    owner = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    payment_date = models.DateField(verbose_name='Дата оплаты')
+    course = models.ForeignKey("online_learning.Course", null=True, blank=True, verbose_name='Оплаченный курс', on_delete=models.CASCADE)
+    lesson = models.ForeignKey("online_learning.Lesson", null=True, blank=True, verbose_name='Оплаченный урок', on_delete=models.CASCADE)
+    value = models.PositiveIntegerField(verbose_name='Сумма оплаты')
+    payment_method = models.CharField(max_length=150, choices=PAYMENT_CHOICES, verbose_name='Способ оплаты')
+
+    class Meta:
+        verbose_name = 'платёж'
+        verbose_name_plural = 'платежи'
+
+    def __str__(self):
+        return f'Payment: {self.payment_date} / {self.value}'
