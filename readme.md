@@ -27,3 +27,4 @@ Custom serializers added for:
 
 ## 25.1
 
+added Moderators and Owners permissions via JWT
