@@ -4,9 +4,11 @@
 
 ### Used technologies:
 - Python
+- Postgres
 - Django
 - DRF
-- Postgres
+- django_filters 
+- JWT
 
 ### Models
 - app users, models User, Payment
@@ -22,3 +24,7 @@ Custom serializers added for:
 - Course (lessons and lessons_qty)
 - Payment (filters)
 - User (payments)
+
+## 25.1
+
+added Moderators and Owners permissions via JWT
