@@ -32,4 +32,5 @@ added Moderators and Owners permissions via JWT
 ## 25.2
 
 - validator added for Lesson.url
+- Subscription added
 - 
