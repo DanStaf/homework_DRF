@@ -8,10 +8,12 @@ class TextValidator:
         self.correct_text = correct_text
 
     def __call__(self, value):
-        if value is None or len(value) == 0:
+        deta_value = dict(value).get(self.field)
+
+        if deta_value is None or len(deta_value) == 0:
             result = True
         else:
-            index = value.lower().find(self.correct_text.lower())
+            index = deta_value.lower().find(self.correct_text.lower())
             result = (index != -1)
 
         if not result:
