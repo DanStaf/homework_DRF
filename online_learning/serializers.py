@@ -3,11 +3,15 @@ from rest_framework.serializers import ModelSerializer
 from online_learning.models import Course, Lesson
 from rest_framework import serializers
 
+from online_learning.validators import TextValidator
+
 
 class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
         fields = ['id', 'title', 'description', 'picture', 'url', 'course', 'owner']
+        validators = [TextValidator(field='url', correct_text='youtube.com')]
+
         # fields = "__all__"
 
 
