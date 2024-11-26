@@ -1,17 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import path, include
 
 from rest_framework import routers, viewsets, generics
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from online_learning.models import Course, Lesson
-from online_learning.serializers import CourseSerializer, LessonSerializer
+from online_learning.models import Course, Lesson, Subscription
+from online_learning.paginators import MyPagination
+from online_learning.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
 from users.permissions import IsModeratorClass, IsOwnerClass
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    pagination_class = MyPagination
 
     def perform_create(self, serializer):
         new_course = serializer.save()
@@ -45,6 +49,7 @@ class LessonCreateApiView(generics.CreateAPIView):
 class LessonListApiView(generics.ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    pagination_class = MyPagination
 
 
 class LessonDestroyApiView(generics.DestroyAPIView):
@@ -63,3 +68,21 @@ class LessonUpdateApiView(generics.UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated, IsModeratorClass | IsOwnerClass]
+
+
+class SubscriptionAPIView(APIView):
+    serializer_class = SubscriptionSerializer
+
+    def post(self, *args, **kwargs):
+        user = self.request.user
+        course_id = self.request.data.get('course')
+        course = get_object_or_404(Course, pk=course_id)
+        subs_item = Subscription.objects.all().filter(user=user).filter(course=course)
+
+        if subs_item.exists():
+            subs_item.delete()
+            message = 'Подписка отключена'
+        else:
+            Subscription.objects.create(user=user, course=course)
+            message = 'Подписка включена'
+        return Response({"message": message})
