@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from online_learning.models import Course, Lesson, Subscription
+from online_learning.paginators import MyPagination
 from online_learning.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
 from users.permissions import IsModeratorClass, IsOwnerClass
 
@@ -14,6 +15,7 @@ from users.permissions import IsModeratorClass, IsOwnerClass
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    pagination_class = MyPagination
 
     def perform_create(self, serializer):
         new_course = serializer.save()
@@ -47,6 +49,7 @@ class LessonCreateApiView(generics.CreateAPIView):
 class LessonListApiView(generics.ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    pagination_class = MyPagination
 
 
 class LessonDestroyApiView(generics.DestroyAPIView):

@@ -33,4 +33,5 @@ added Moderators and Owners permissions via JWT
 
 - validator added for Lesson.url
 - Subscription added
+- pagination for Lesson and Course added
 - 
