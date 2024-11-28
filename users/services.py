@@ -27,3 +27,9 @@ def create_stripe_session(price, success_url):
         line_items=[{"price": price.get("id"), "quantity": 1}],
         mode="payment",
     )
+
+
+def get_stripe_session_retrieve(session_id):
+
+    response = stripe.checkout.Session.retrieve(session_id, )
+    return response.get("status")

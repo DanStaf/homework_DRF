@@ -39,4 +39,5 @@ added Moderators and Owners permissions via JWT
 ## 26.1
 
 - added drf_yasg
-- added stripe, added enpoint for payment creation
+- added stripe, added endpoint for payment creation
+- added PaymentRetrieve endpoint
