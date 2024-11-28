@@ -35,3 +35,8 @@ added Moderators and Owners permissions via JWT
 - Subscription added
 - pagination for Lesson and Course added
 - tests added
+
+## 26.1
+
+- added drf_yasg
+
