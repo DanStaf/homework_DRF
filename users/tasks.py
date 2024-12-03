@@ -20,4 +20,4 @@ def check_users_last_login():
                 user.save()
                 print(user, user.last_login, user.is_active)
 
-    # print("#")
+    print("#")

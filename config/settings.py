@@ -149,9 +149,6 @@ STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
 
 
 
-
-
-
 # Настройки для Celery
 
 # URL-адрес брокера сообщений
@@ -163,13 +160,6 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = os.getenv("CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP") == "True"
 
-
-#CELERY_BEAT_SCHEDULE = {
-#    'task-name': {
-#        'task': 'online_learning.tasks.my_task',  # Путь к задаче
-#        'schedule': timedelta(seconds=10),  # Расписание выполнения задачи
-#    },
-#}
 
 EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
