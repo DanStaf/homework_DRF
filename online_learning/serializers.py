@@ -18,13 +18,18 @@ class LessonSerializer(ModelSerializer):
 class CourseSerializer(ModelSerializer):
     lessons_qty = serializers.SerializerMethodField(read_only=True)
     lessons = LessonSerializer(read_only=True, many=True, source='lesson_set')
+    is_user_signed = serializers.SerializerMethodField(read_only=True)
 
     def get_lessons_qty(self, obj):
         return obj.lesson_set.count()
 
+    def get_is_user_signed(self, obj):
+        subs = Subscription.objects.filter(course=obj).filter(user=self.context["request"].user)
+        return subs.exists()
+
     class Meta:
         model = Course
-        fields = ['id', 'title', 'description', 'picture', 'owner', 'lessons_qty', 'lessons']
+        fields = ['id', 'title', 'description', 'picture', 'owner', 'is_user_signed', 'lessons_qty', 'lessons']
 
 
 class SubscriptionSerializer(ModelSerializer):
