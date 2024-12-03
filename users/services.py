@@ -33,3 +33,6 @@ def get_stripe_session_retrieve(session_id):
 
     response = stripe.checkout.Session.retrieve(session_id, )
     return response.get("status")
+
+
+# PeriodicTask.objects.create(

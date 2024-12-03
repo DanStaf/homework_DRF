@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,25 @@ SIMPLE_JWT = {
 }
 
 STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+
+
+
+
+
+
+# Настройки для Celery
+
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')  # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')  # URL-адрес брокера результатов, также Redis
+CELERY_TIMEZONE = os.getenv('CELERY_TIMEZONE')  # Часовой пояс для работы Celery
+CELERY_TASK_TRACK_STARTED = os.getenv('CELERY_TASK_TRACK_STARTED')  # Флаг отслеживания выполнения задач
+CELERY_TASK_TIME_LIMIT = os.getenv('CELERY_TASK_TIME_LIMIT')  # Максимальное время на выполнение задачи
+
+
+#CELERY_BEAT_SCHEDULE = {
+#    'task-name': {
+#        'task': 'online_learning.tasks.my_task',  # Путь к задаче
+#        'schedule': timedelta(seconds=10),  # Расписание выполнения задачи
+#    },
+#}

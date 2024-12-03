@@ -41,3 +41,7 @@ added Moderators and Owners permissions via JWT
 - added drf_yasg
 - added stripe, added endpoint for payment creation
 - added PaymentRetrieve endpoint
+
+## 26.2
+- added celery, eventlet, redis, django-celery-beat (+migrate)
+- 
