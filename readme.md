@@ -44,4 +44,4 @@ added Moderators and Owners permissions via JWT
 
 ## 26.2
 - added celery, eventlet, redis, django-celery-beat (+migrate)
-- 
+- async send emails (updates on course) # celery -A config worker -l INFO -P eventlet

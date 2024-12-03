@@ -1,7 +1,6 @@
-from django.shortcuts import render, get_object_or_404
-from django.urls import path, include
+from django.shortcuts import get_object_or_404
 
-from rest_framework import routers, viewsets, generics
+from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -10,6 +9,7 @@ from online_learning.models import Course, Lesson, Subscription
 from online_learning.paginators import MyPagination
 from online_learning.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
 from users.permissions import IsModeratorClass, IsOwnerClass
+from online_learning.tasks import send_updates_to_users
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -21,6 +21,10 @@ class CourseViewSet(viewsets.ModelViewSet):
         new_course = serializer.save()
         new_course.owner = self.request.user
         new_course.save()
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        send_updates_to_users.delay(instance.pk)
 
     def get_permissions(self):
         if self.action == 'create':
