@@ -12,6 +12,7 @@ from users.models import User, Payment
 from users.serializers import UserSerializer, PaymentSerializer
 from users.services import create_stripe_product, create_stripe_price, create_stripe_session, \
     get_stripe_session_retrieve
+from users.tasks import check_users_last_login
 
 
 # Create your views here.
@@ -19,6 +20,12 @@ from users.services import create_stripe_product, create_stripe_price, create_st
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def list(self, request):
+        """перенести вызов task"""
+
+        check_users_last_login()
+        return super().list(self, request)
 
     def perform_create(self, serializer):
         new_user = serializer.save(is_active=True)
