@@ -41,3 +41,16 @@ added Moderators and Owners permissions via JWT
 - added drf_yasg
 - added stripe, added endpoint for payment creation
 - added PaymentRetrieve endpoint
+
+## 26.2
+- added celery, eventlet, redis, django-celery-beat (+migrate)
+- async send emails (updates on course)
+- # redis-cli / ... / shutdown / ... / exit
+- # redis-server
+- # python manage.py runserver
+- # celery -A config worker -l INFO -P eventlet
+- deactivate sleeping users
+- # redis-server
+- # python manage.py runserver
+- # celery -A config worker -l INFO -P eventlet
+- # celery -A config beat --loglevel INFO

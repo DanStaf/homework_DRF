@@ -10,11 +10,11 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import User, Payment
 from users.serializers import UserSerializer, PaymentSerializer
-from users.services import create_stripe_product, create_stripe_price, create_stripe_session, \
-    get_stripe_session_retrieve
-
+from users.services import (create_stripe_product, create_stripe_price,
+                            create_stripe_session, get_stripe_session_retrieve)
 
 # Create your views here.
+
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
@@ -53,7 +53,7 @@ class PaymentCreateApiView(generics.CreateAPIView):
         payment.owner = self.request.user
         stripe_product = create_stripe_product(payment)
         stripe_price = create_stripe_price(stripe_product, payment.value)
-        stripe_session = create_stripe_session(stripe_price, success_url) # "http://127.0.0.1:8000/users/payments"
+        stripe_session = create_stripe_session(stripe_price, success_url)  # "http://127.0.0.1:8000/users/payments"
 
         payment.payment_link = stripe_session.get("url")
         payment.session_id = stripe_session.get("id")
